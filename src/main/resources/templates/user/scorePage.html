@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Tela de Pontua&ccedil;&atilde;o</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+
+  </head>
+
+  <body>
+
+    <!-- Include _menu.html -->
+    <th:block th:include="/user/_menu"></th:block>
+
+    <!-- Page Content -->
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12 text-center">
+          <h1 class="mt-5">Seus Pontos </h1>
+          <div class="table-responsive">
+          	<table class="table" th:each="ponto : ${pontos}">
+          		<tbody>
+          			<tr>
+          				<td th:text="${ponto.estab}"></td>          				
+          			</tr>
+          			<tr>
+          				<td><img class="img img-fluid" th:src="${ponto.imagem}" alt="Cartao Indisponivel"/></td>
+          			</tr>
+          		</tbody>
+          	</table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </body>
+
+</html>

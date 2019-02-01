@@ -2,9 +2,12 @@ package br.com.fidelity.controller;
 
 import java.io.IOException;
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.validation.Valid;
 
+import org.apache.commons.lang.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
@@ -12,19 +15,31 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.google.zxing.WriterException;
 
 import br.com.fidelity.entity.AppUser;
+import br.com.fidelity.entity.Connect;
+import br.com.fidelity.entity.Estab;
 import br.com.fidelity.repository.AppUserRepository;
+import br.com.fidelity.repository.ConnectRepository;
+import br.com.fidelity.repository.EstabRepository;
+import br.com.fidelity.utils.Ponto;
 import br.com.fidelity.utils.WebUtils;
 
 @Controller
 public class MainController {
 	@Autowired
 	AppUserRepository appUserRepository;
+	
+	@Autowired
+	EstabRepository estabRepository;
+	
+	@Autowired
+	ConnectRepository connectRepository;
 	
 	@Autowired
 	private PasswordEncoder passwordEncoder;
@@ -64,23 +79,21 @@ public class MainController {
 			return "loginPage";
 		}
 	}
-
-	@RequestMapping(value = "/logoutSuccessful", method = RequestMethod.GET)
-	public String logoutSuccessfulPage(Model model) {
-		model.addAttribute("title", "Logout");
-		return "logoutSuccessfulPage";
-	}
 	
 	@RequestMapping(value = "/user/checkin", method = RequestMethod.GET)
 	public String checkinPage(Model model) throws WriterException, IOException {
-		String id = "1234567890";
+		int length = 5;
+	    boolean useLetters = true;
+	    boolean useNumbers = true;
+	    String id = RandomStringUtils.random(length, useLetters, useNumbers).toLowerCase();
+
 		model.addAttribute("id",id);
 		WebUtils.generateQRCodeImage(id, 350, 350);
 		return "user/checkinPage";
 	}
 
 	@RequestMapping(value = "/user/home", method = RequestMethod.GET)
-	public String home(Model model, Principal principal) {
+	public String homePage(Model model, Principal principal) {
 
 		// After user login successfully.
 		//String userName = principal.getName();
@@ -93,6 +106,42 @@ public class MainController {
 		model.addAttribute("userInfo", userInfo);
 
 		return "user/homePage";
+	}
+	
+	@RequestMapping(value = "/user/connect", method = RequestMethod.GET)
+	public String connectPage(Model model, Principal principal) {
+		List<Estab> estabs = estabRepository.findNotConnected(principal.getName());
+		model.addAttribute("estabs", estabs);
+		return "user/connectPage";
+	}
+	
+	@RequestMapping(value = "/user/connect/{estabId}", method = RequestMethod.GET)
+	public String connect(@PathVariable("estabId") Long estabId, Model model, Principal principal) {
+		Connect connect = new Connect();
+		connect.setAppUser(appUserRepository.findByUserName(principal.getName()));
+		connect.setEstab(estabRepository.findById(estabId).orElse(null));
+		
+		connectRepository.save(connect);
+		return connectPage(model, principal);
+	}
+	
+	@RequestMapping(value = "/user/score", method = RequestMethod.GET)
+	public String scorePage(Model model) {
+		List<Ponto> pontos = new ArrayList<>();
+		Ponto p1 = new Ponto();
+		p1.setEstab("Comidinhas");
+		p1.setImagem("/2.png");
+		
+		Ponto p2 = new Ponto();
+		p2.setEstab("Spartan");
+		p2.setImagem("/0.png");
+		
+		pontos.add(p1);
+		pontos.add(p2);
+		
+		model.addAttribute("pontos", pontos);
+
+		return "user/scorePage";
 	}
 
 	@RequestMapping(value = "/403", method = RequestMethod.GET)
