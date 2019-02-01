@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Tela de cadastro</title>
+
+    <!-- Bootstrap core CSS -->
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="css/signin.css">
+
+  </head>
+  <body class="text-center">
+    <form th:object="${user}" th:action="@{/cadastro}" method="post" class="form-signin">
+  <h1 class="h3 mb-3 font-weight-bold">Cadastro</h1>
+  <label for="userName" class="sr-only">Usu&aacute;rio</label>
+  <input type="text" id="userName" th:field="*{userName}" class="form-control" placeholder="Usuário" required autofocus>
+  <label th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}">User Error</label>
+  <label for="encrytedPassword" class="sr-only">Senha</label>
+  <input type="password" id="encrytedPassword" name="encrytedPassword" th:field="*{encrytedPassword}" class="form-control" placeholder="Senha" onkeyup='check_pass();' required>
+  <label th:if="${#fields.hasErrors('encrytedPassword')}" th:errors="*{encrytedPassword}">Pass Error</label>
+  <label class="sr-only">Confirmar Senha</label>
+  <input type="password" id="confsenha" class="form-control" placeholder="Confirmar Senha" onkeyup='check_pass();' required>
+  <label for="telephone" class="sr-only">Telefone</label>
+  <input type="text" id="telephone" th:field="*{telephone}" class="form-control" placeholder="Telefone">
+  <input type="text" id="roleName" name="roleName" th:value="ROLE_USER" style="display:none;">
+  <input type="text" id="enabled" name="enabled" th:value="true" style="display:none;">
+  <button class="btn btn-lg btn-primary btn-block" id="submit" name="submit" type="submit" disabled>Cadastrar</button>
+  <a class="btn btn-lg btn-danger btn-block" href="/">Cancelar</a>
+</form>
+<script type="text/javascript">
+function check_pass() {
+    if (document.getElementById('encrytedPassword').value ==
+            document.getElementById('confsenha').value) {
+        document.getElementById('submit').disabled = false;
+    } else {
+        document.getElementById('submit').disabled = true;
+    }
+}
+</script>
+</body>
+</html>

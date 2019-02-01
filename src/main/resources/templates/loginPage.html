@@ -1,0 +1,34 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+xmlns:th="http://www.thymeleaf.org" 
+xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+   <head>
+      <title>Login</title>
+      <link href="css/bootstrap.min.css" rel="stylesheet">
+      <link rel="stylesheet" type="text/css" href="css/signin.css">
+   </head>
+   <body class="text-center">      
+      <form name='f' th:action="@{/j_spring_security_check}" method='POST' class="form-signin">
+      	<!-- /login?error=true -->
+	      <div th:if="${#request.getParameter('error') == 'true'}"
+	            style="color:red;margin:10px 0px;">
+	         Login Failed!!!<br />
+	         Reason :
+	         <span th:if="${#session!= null and #session.getAttribute('SPRING_SECURITY_LAST_EXCEPTION') != null}"
+	            th:utext="${#session.getAttribute('SPRING_SECURITY_LAST_EXCEPTION').message}">
+	                Static summary
+	         </span>
+	            
+	      </div>
+      
+      <h1 class="h3 mb-3 font-weight-bold">Sistema Fidelity</h1>
+      	<label for="username" class="sr-only">Usu&aacute;rio</label>      	
+      	<input type="text" id="username" name="username" class="form-control" placeholder="Usuário" required autofocus>
+      	<label for="password" class="sr-only">Senha</label>
+      	<input type="password" id="password" name="password" class="form-control" placeholder="Senha" required>
+      	<button class="btn btn-lg btn-primary btn-block" type="submit">Entrar</button>
+      	<p class="lead">N&atilde;o possui cadastro? <a href="/cadastro">Clique aqui...</a></p>
+      </form>       
+   </body>
+    
+</html>
