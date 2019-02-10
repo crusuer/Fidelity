@@ -31,6 +31,8 @@
 			    <tr>
 			      <th scope="col">ID</th>
 			      <th scope="col">Nome</th>
+			      <th scope="col">Endere&ccedil;o</th>
+			      <th scope="col">Hor&aacute;rio de Funcionamento</th>
 			      <th scope="col"></th>
 			    </tr>
 			  </thead>
@@ -38,8 +40,10 @@
 			  	<tr th:each="estab : ${estabs}">
 	    			<td scope="row" th:text="${estab.estabId}"></td>
 	    			<td scope="row" th:text="${estab.nome}"></td>
+	    			<td scope="row">Rua Floriano Peixoto, 200</td>
+	    			<td scope="row">9h as 18h - Segunda a sexta</td>
 	    			<td scope="row">
-	    				<a class="btn btn-sm btn-primary" th:href="@{/user/connect/{estabId}(estabId=${estab.estabId})}" >Associar-se</a>
+	    				<a class="btn btn-sm btn-primary" th:href="@{/user/rule(estabId=${estab.estabId})}" >Regulamento</a>
 	    			</td>
 	    		</tr>
 			  </tbody>

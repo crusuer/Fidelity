@@ -8,10 +8,11 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Tela de Pontua&ccedil;&atilde;o</title>
+    <title>Tela de Check-in</title>
 
     <!-- Bootstrap core CSS -->
     <link href="/css/bootstrap.min.css" rel="stylesheet">
+
   </head>
 
   <body>
@@ -23,24 +24,19 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-12 text-center">
-          <h1 class="mt-5">Sua Pontua&ccedil;&atilde;o </h1>
-          <div class="table-responsive">
-          	<table class="table" th:each="ponto : ${pontos}">
-          		<tbody>
-          			<tr>
-          				<td th:text="${ponto.estab}"></td>
-          				<td>7/10</td>				
-          			</tr>
-          			<tr class="content">
-          				<td><img class="img img-fluid" th:src="${ponto.imagem}" alt="Cartao Indisponivel"/></td>
-          				<td></td>
-          			</tr>
-          		</tbody>
-          	</table>
-          </div>
+          <h1 class="mt-5">
+	          <span>Seu ID: </span>
+	          <span th:text="${id}"></span>
+          </h1>
         </div>
       </div>
+      <div class="row">
+      	<div class="col-lg-12 text-center">
+      		<img class="img img-fluid" src="/MyQRCode.png" alt="QRCode indisponivel">
+      	</div>
+      </div>
     </div>
+
   </body>
 
 </html>

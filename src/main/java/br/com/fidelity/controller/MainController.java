@@ -91,6 +91,18 @@ public class MainController {
 		WebUtils.generateQRCodeImage(id, 350, 350);
 		return "user/checkinPage";
 	}
+	
+	@RequestMapping(value = "/user/checkout", method = RequestMethod.GET)
+	public String checkoutPage(Model model) throws WriterException, IOException {
+		int length = 5;
+	    boolean useLetters = true;
+	    boolean useNumbers = true;
+	    String id = RandomStringUtils.random(length, useLetters, useNumbers).toLowerCase();
+
+		model.addAttribute("id",id);
+		WebUtils.generateQRCodeImage(id, 350, 350);
+		return "user/checkoutPage";
+	}
 
 	@RequestMapping(value = "/user/home", method = RequestMethod.GET)
 	public String homePage(Model model, Principal principal) {
@@ -113,6 +125,11 @@ public class MainController {
 		List<Estab> estabs = estabRepository.findNotConnected(principal.getName());
 		model.addAttribute("estabs", estabs);
 		return "user/connectPage";
+	}
+	
+	@RequestMapping(value = "/user/rule")
+	public String rulePage(Model model) {
+		return "user/rulePage";
 	}
 	
 	@RequestMapping(value = "/user/connect/{estabId}", method = RequestMethod.GET)

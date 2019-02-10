@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Tela inicial</title>
+    <title>Tela de Regulamento</title>
 
     <!-- Bootstrap core CSS -->
     <link href="/css/bootstrap.min.css" rel="stylesheet">
@@ -24,7 +24,7 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-12 text-center">
-          <h1 class="mt-5">Seja bem-vindo ao sistema Fidelity!</h1>
+          <h1 class="mt-5">Veja o regulamento do estabelecimento <span>XPTO</span></h1>
           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In commodo arcu vel aliquam pellentesque. Integer pellentesque ex mattis velit blandit mollis. Suspendisse eu nulla in magna gravida hendrerit. Suspendisse arcu turpis, tempus sit amet enim ac, tincidunt malesuada magna. Phasellus eget tristique nulla. Aliquam velit lorem, interdum sed dolor eget, facilisis imperdiet enim. Aenean consectetur lectus eu ante vulputate sodales. Nam blandit, sapien nec mollis fringilla, tellus est vehicula leo, quis faucibus dui libero a lacus. Aliquam et pellentesque mi. Aliquam nec sagittis tellus. Aliquam laoreet tellus quis justo mollis vehicula. Mauris gravida vehicula cursus.
 </p>
 <p>Quisque ut est euismod, facilisis nisl dignissim, fermentum tortor. Pellentesque fermentum sollicitudin magna ac faucibus. Morbi quis elementum nisl. Nunc quis risus at nisl sollicitudin gravida. Pellentesque tristique id velit pellentesque dignissim. Sed imperdiet orci quis tortor hendrerit, vel rhoncus neque tristique. Morbi gravida, metus sollicitudin viverra iaculis, ante felis viverra elit, nec pretium quam leo vitae lectus. Suspendisse potenti.
@@ -36,6 +36,12 @@ Nullam pulvinar quam a convallis feugiat. In hac habitasse platea dictumst. Done
 Integer hendrerit nulla varius quam finibus, sit amet ornare enim ultricies. Maecenas sed suscipit lectus. Nullam arcu dui, tempor luctus velit sit amet, tempor lobortis nisl. Phasellus euismod magna eget molestie pellentesque. Ut feugiat turpis quis sollicitudin accumsan. Praesent lacinia eleifend diam, quis eleifend magna iaculis sollicitudin. Nunc interdum, mauris id sodales efficitur, ligula felis accumsan sapien, id dapibus felis orci vel velit. Fusce lorem diam, semper et lacus quis, rutrum mattis metus. Suspendisse potenti. In fringilla, enim sit amet eleifend vestibulum, purus risus tempor lectus, eget ullamcorper risus odio condimentum erat. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur finibus consequat mi, quis tincidunt eros imperdiet nec. Suspendisse porttitor tellus nec orci molestie, sed fermentum odio maximus.
 </p>
         </div>
+        <form th:action="@{/user/connect}" method="POST">        	
+        	<input type="checkbox" id="checkbox_id" name="checkbox_id" onchange="document.getElementById('sendNewSms').disabled = !this.checked;" />
+        	<label for="checkbox_id">Li e aceito o regulamento</label>
+        	<br>
+        	<input class="btn btn-sm btn-primary" type="submit" name="sendNewSms" id="sendNewSms" value="Associar-se" disabled/>
+        </form>
       </div>
     </div>
 
